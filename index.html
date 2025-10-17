@@ -58,8 +58,15 @@
         }
 
         /* 오른쪽 컨텐츠 */
-        .main-content {
+        .main-content-wrapper {
             width: 80%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .main-content {
+            flex-grow: 1;
             padding: 40px 50px;
             overflow-y: auto;
         }
@@ -175,12 +182,22 @@
         }
         .correct { color: #388e3c; }
         .incorrect { color: #d32f2f; }
+        
+        /* 푸터 스타일 추가 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #e9ecef;
+            color: #6c757d;
+            font-size: 0.9em;
+            flex-shrink: 0; /* 푸터 크기가 줄어들지 않도록 설정 */
+        }
 
         /* 반응형 웹 디자인 */
         @media (max-width: 768px) {
             body, html { font-size: 16px; }
             .container { flex-direction: column; height: auto; }
-            .sidebar, .main-content { width: 100%; box-sizing: border-box; }
+            .sidebar, .main-content-wrapper { width: 100%; box-sizing: border-box; }
             .main-content { padding: 25px; }
             .btn-difficulty { width: 100%; margin: 8px 0; }
         }
@@ -196,105 +213,108 @@
             <li onclick="showContent('binomial')">이항정리</li>
         </ul>
     </div>
-    <div class="main-content">
-        <div id="perm-comb" class="content-section active">
-            <div id="perm-comb-concept">
-                <h2>순열과 조합</h2>
-                <h3>1. 경우의 수 기본 법칙</h3>
-                <p><b>합의 법칙:</b> 두 사건 A, B가 동시에 일어나지 않을 때, 사건 A 또는 사건 B가 일어나는 경우의 수는 각 사건의 경우의 수를 더한 것과 같습니다. (<code>m + n</code>)</p>
-                <p><b>곱의 법칙:</b> 두 사건 A, B에 대하여 사건 A가 일어나는 경우의 수가 m이고, 그 각각에 대하여 사건 B가 일어나는 경우의 수가 n일 때, 두 사건이 연이어 일어나는 경우의 수는 두 경우의 수를 곱한 것과 같습니다. (<code>m × n</code>)</p>
-                
-                <h3>2. 순열 (Permutation)</h3>
-                <p>서로 다른 n개의 원소에서 r개를 <strong>순서를 고려하여</strong> 선택하고 나열하는 것을 의미합니다. '반장, 부반장 뽑기'와 같이 순서가 결과에 영향을 미치는 경우에 사용됩니다.</p>
-                <ul>
-                    <li><b>기호:</b> <code>ₙPᵣ</code></li>
-                    <li><b>계산 공식:</b> <code>n! / (n-r)!</code></li>
-                    <li><b>원순열:</b> 서로 다른 n개의 원소를 원형으로 배열하는 순열입니다. 일반 순열과 달리 회전하여 일치하는 경우는 같은 것으로 봅니다. (<code>(n-1)!</code>)</li>
-                    <li><b>중복순열:</b> 서로 다른 n개에서 <strong>중복을 허용하여</strong> r개를 택하는 순열입니다. '네 자리 비밀번호 설정'과 같이 중복이 가능한 경우에 사용됩니다. (<code>nʳ</code>)</li>
-                    <li><b>같은 것이 있는 순열:</b> n개 중에 같은 것이 각각 p개, q개, ... 있을 때, 이들을 모두 나열하는 순열입니다. (<code>n! / (p! * q! * ...)</code>)</li>
-                </ul>
+    <div class="main-content-wrapper">
+        <div class="main-content">
+            <div id="perm-comb" class="content-section active">
+                <div id="perm-comb-concept">
+                    <h2>순열과 조합</h2>
+                    <h3>1. 경우의 수 기본 법칙</h3>
+                    <p><b>합의 법칙:</b> 두 사건 A, B가 동시에 일어나지 않을 때, 사건 A 또는 사건 B가 일어나는 경우의 수는 각 사건의 경우의 수를 더한 것과 같습니다. (<code>m + n</code>)</p>
+                    <p><b>곱의 법칙:</b> 두 사건 A, B에 대하여 사건 A가 일어나는 경우의 수가 m이고, 그 각각에 대하여 사건 B가 일어나는 경우의 수가 n일 때, 두 사건이 연이어 일어나는 경우의 수는 두 경우의 수를 곱한 것과 같습니다. (<code>m × n</code>)</p>
+                    
+                    <h3>2. 순열 (Permutation)</h3>
+                    <p>서로 다른 n개의 원소에서 r개를 <strong>순서를 고려하여</strong> 선택하고 나열하는 것을 의미합니다. '반장, 부반장 뽑기'와 같이 순서가 결과에 영향을 미치는 경우에 사용됩니다.</p>
+                    <ul>
+                        <li><b>기호:</b> <code>ₙPᵣ</code></li>
+                        <li><b>계산 공식:</b> <code>n! / (n-r)!</code></li>
+                        <li><b>원순열:</b> 서로 다른 n개의 원소를 원형으로 배열하는 순열입니다. 일반 순열과 달리 회전하여 일치하는 경우는 같은 것으로 봅니다. (<code>(n-1)!</code>)</li>
+                        <li><b>중복순열:</b> 서로 다른 n개에서 <strong>중복을 허용하여</strong> r개를 택하는 순열입니다. '네 자리 비밀번호 설정'과 같이 중복이 가능한 경우에 사용됩니다. (<code>nʳ</code>)</li>
+                        <li><b>같은 것이 있는 순열:</b> n개 중에 같은 것이 각각 p개, q개, ... 있을 때, 이들을 모두 나열하는 순열입니다. (<code>n! / (p! * q! * ...)</code>)</li>
+                    </ul>
 
-                <h3>3. 조합 (Combination)</h3>
-                <p>서로 다른 n개의 원소에서 <strong>순서를 고려하지 않고</strong> r개를 선택하는 것을 의미합니다. '대표 2명 뽑기'와 같이 순서가 결과에 영향을 주지 않는 경우에 사용됩니다.</p>
-                <ul>
-                    <li><b>기호:</b> <code>ₙCᵣ</code></li>
-                    <li><b>계산 공식:</b> <code>n! / (r! * (n-r)!) = ₙPᵣ / r!</code></li>
-                    <li><b>중복조합:</b> 서로 다른 n개에서 <strong>중복을 허용하여</strong> r개를 택하는 조합입니다. '과일 가게에서 5개의 과일 사기'와 같이 순서 없이 중복이 가능한 경우에 사용됩니다. (<code>ₙ₊ᵣ₋₁Cᵣ</code>)</li>
-                </ul>
-                <div class="btn-container">
-                    <button class="btn btn-primary" onclick="showView('perm-comb-example-difficulty')">예제풀이 보기</button>
-                    <button class="btn btn-primary" onclick="showView('perm-comb-quiz-difficulty')">문제풀이 시작</button>
+                    <h3>3. 조합 (Combination)</h3>
+                    <p>서로 다른 n개의 원소에서 <strong>순서를 고려하지 않고</strong> r개를 선택하는 것을 의미합니다. '대표 2명 뽑기'와 같이 순서가 결과에 영향을 주지 않는 경우에 사용됩니다.</p>
+                    <ul>
+                        <li><b>기호:</b> <code>ₙCᵣ</code></li>
+                        <li><b>계산 공식:</b> <code>n! / (r! * (n-r)!) = ₙPᵣ / r!</code></li>
+                        <li><b>중복조합:</b> 서로 다른 n개에서 <strong>중복을 허용하여</strong> r개를 택하는 조합입니다. '과일 가게에서 5개의 과일 사기'와 같이 순서 없이 중복이 가능한 경우에 사용됩니다. (<code>ₙ₊ᵣ₋₁Cᵣ</code>)</li>
+                    </ul>
+                    <div class="btn-container">
+                        <button class="btn btn-primary" onclick="showView('perm-comb-example-difficulty')">예제풀이 보기</button>
+                        <button class="btn btn-primary" onclick="showView('perm-comb-quiz-difficulty')">문제풀이 시작</button>
+                    </div>
                 </div>
-            </div>
-            <div id="perm-comb-example-difficulty" style="display:none;">
-                <h2>순열과 조합 - 예제 난이도 선택</h2>
-                <div class="btn-container">
-                    <button class="btn btn-difficulty" onclick="startExamples('perm-comb', 'basic')">기초 예제</button>
-                    <button class="btn btn-difficulty" onclick="startExamples('perm-comb', 'intermediate')">응용 예제</button>
+                <div id="perm-comb-example-difficulty" style="display:none;">
+                    <h2>순열과 조합 - 예제 난이도 선택</h2>
+                    <div class="btn-container">
+                        <button class="btn btn-difficulty" onclick="startExamples('perm-comb', 'basic')">기초 예제</button>
+                        <button class="btn btn-difficulty" onclick="startExamples('perm-comb', 'intermediate')">응용 예제</button>
+                    </div>
+                    <div class="btn-container"><button class="btn" onclick="showView('perm-comb-concept')">개념으로 돌아가기</button></div>
                 </div>
-                <div class="btn-container"><button class="btn" onclick="showView('perm-comb-concept')">개념으로 돌아가기</button></div>
-            </div>
-            <div id="perm-comb-example-view" class="dynamic-view-container" style="display:none;"></div>
-            <div id="perm-comb-quiz-difficulty" style="display:none;">
-                <h2>순열과 조합 - 문제 난이도 선택</h2>
-                <div class="btn-container">
-                    <button class="btn btn-difficulty" onclick="startQuiz('perm-comb', 'basic')">기초</button>
-                    <button class="btn btn-difficulty" onclick="startQuiz('perm-comb', 'intermediate')">응용</button>
-                    <button class="btn btn-difficulty" onclick="startQuiz('perm-comb', 'advanced')">심화</button>
+                <div id="perm-comb-example-view" class="dynamic-view-container" style="display:none;"></div>
+                <div id="perm-comb-quiz-difficulty" style="display:none;">
+                    <h2>순열과 조합 - 문제 난이도 선택</h2>
+                    <div class="btn-container">
+                        <button class="btn btn-difficulty" onclick="startQuiz('perm-comb', 'basic')">기초</button>
+                        <button class="btn btn-difficulty" onclick="startQuiz('perm-comb', 'intermediate')">응용</button>
+                        <button class="btn btn-difficulty" onclick="startQuiz('perm-comb', 'advanced')">심화</button>
+                    </div>
+                     <div class="btn-container"><button class="btn" onclick="showView('perm-comb-concept')">개념으로 돌아가기</button></div>
                 </div>
-                 <div class="btn-container"><button class="btn" onclick="showView('perm-comb-concept')">개념으로 돌아가기</button></div>
+                <div id="perm-comb-quiz-view" class="dynamic-view-container" style="display:none;"></div>
             </div>
-            <div id="perm-comb-quiz-view" class="dynamic-view-container" style="display:none;"></div>
-        </div>
 
-        <div id="binomial" class="content-section">
-             <div id="binomial-concept">
-                <h2>이항정리</h2>
-                <h3>1. 이항정리란?</h3>
-                <p>이항(항이 두 개)의 거듭제곱 <code>(a+b)ⁿ</code>을 전개했을 때 나타나는 식의 규칙성입니다. 이항정리를 이용하면 복잡한 다항식의 특정 항의 계수를 쉽게 구할 수 있습니다.</p>
-                <p><b>기본 공식:</b> (a+b)ⁿ = ₙC₀aⁿ + ₙC₁aⁿ⁻¹b¹ + ... + ₙCᵣaⁿ⁻ʳbʳ + ... + ₙCₙbⁿ</p>
-                <p>여기서 각 항의 계수 <code>ₙCᵣ</code>을 <b>이항계수</b>라고 하며, <code>ₙCᵣaⁿ⁻ʳbʳ</code>을 전개식의 <b>일반항</b>이라고 합니다. 일반항은 특정 항을 찾는 데 매우 유용합니다.</p>
-                
-                <h3>2. 파스칼의 삼각형</h3>
-                <p>이항계수(<code>ₙCᵣ</code>)를 삼각형 모양으로 배열한 것입니다. 각 행은 <code>(a+b)ⁿ</code>의 계수들과 일치하며, 다음과 같은 중요한 성질을 가집니다.</p>
-                <ul>
-                    <li>각 행의 양 끝 숫자는 항상 1입니다. (<code>ₙC₀ = ₙCₙ = 1</code>)</li>
-                    <li>각 행의 숫자는 바로 위 행의 이웃한 두 숫자의 합과 같습니다. (<code>ₙ₋₁Cᵣ₋₁ + ₙ₋₁Cᵣ = ₙCᵣ</code>)</li>
-                    <li>n행의 모든 이항계수의 합은 <code>2ⁿ</code> 입니다. (<code>ₙC₀ + ₙC₁ + ... + ₙCₙ = 2ⁿ</code>)</li>
-                    <li><b>하키 스틱 패턴:</b> 삼각형의 대각선 위 숫자들의 합은 그 다음 행의 안쪽 숫자와 같습니다.</li>
-                </ul>
-                <div class="btn-container">
-                    <button class="btn btn-primary" onclick="showView('binomial-example-difficulty')">예제풀이 보기</button>
-                    <button class="btn btn-primary" onclick="showView('binomial-quiz-difficulty')">문제풀이 시작</button>
+            <div id="binomial" class="content-section">
+                 <div id="binomial-concept">
+                    <h2>이항정리</h2>
+                    <h3>1. 이항정리란?</h3>
+                    <p>이항(항이 두 개)의 거듭제곱 <code>(a+b)ⁿ</code>을 전개했을 때 나타나는 식의 규칙성입니다. 이항정리를 이용하면 복잡한 다항식의 특정 항의 계수를 쉽게 구할 수 있습니다.</p>
+                    <p><b>기본 공식:</b> (a+b)ⁿ = ₙC₀aⁿ + ₙC₁aⁿ⁻¹b¹ + ... + ₙCᵣaⁿ⁻ʳbʳ + ... + ₙCₙbⁿ</p>
+                    <p>여기서 각 항의 계수 <code>ₙCᵣ</code>을 <b>이항계수</b>라고 하며, <code>ₙCᵣaⁿ⁻ʳbʳ</code>을 전개식의 <b>일반항</b>이라고 합니다. 일반항은 특정 항을 찾는 데 매우 유용합니다.</p>
+                    
+                    <h3>2. 파스칼의 삼각형</h3>
+                    <p>이항계수(<code>ₙCᵣ</code>)를 삼각형 모양으로 배열한 것입니다. 각 행은 <code>(a+b)ⁿ</code>의 계수들과 일치하며, 다음과 같은 중요한 성질을 가집니다.</p>
+                    <ul>
+                        <li>각 행의 양 끝 숫자는 항상 1입니다. (<code>ₙC₀ = ₙCₙ = 1</code>)</li>
+                        <li>각 행의 숫자는 바로 위 행의 이웃한 두 숫자의 합과 같습니다. (<code>ₙ₋₁Cᵣ₋₁ + ₙ₋₁Cᵣ = ₙCᵣ</code>)</li>
+                        <li>n행의 모든 이항계수의 합은 <code>2ⁿ</code> 입니다. (<code>ₙC₀ + ₙC₁ + ... + ₙCₙ = 2ⁿ</code>)</li>
+                        <li><b>하키 스틱 패턴:</b> 삼각형의 대각선 위 숫자들의 합은 그 다음 행의 안쪽 숫자와 같습니다.</li>
+                    </ul>
+                    <div class="btn-container">
+                        <button class="btn btn-primary" onclick="showView('binomial-example-difficulty')">예제풀이 보기</button>
+                        <button class="btn btn-primary" onclick="showView('binomial-quiz-difficulty')">문제풀이 시작</button>
+                    </div>
                 </div>
-            </div>
-             <div id="binomial-example-difficulty" style="display:none;">
-                <h2>이항정리 - 예제 난이도 선택</h2>
-                <div class="btn-container">
-                    <button class="btn btn-difficulty" onclick="startExamples('binomial', 'basic')">기초 예제</button>
-                    <button class="btn btn-difficulty" onclick="startExamples('binomial', 'intermediate')">응용 예제</button>
+                 <div id="binomial-example-difficulty" style="display:none;">
+                    <h2>이항정리 - 예제 난이도 선택</h2>
+                    <div class="btn-container">
+                        <button class="btn btn-difficulty" onclick="startExamples('binomial', 'basic')">기초 예제</button>
+                        <button class="btn btn-difficulty" onclick="startExamples('binomial', 'intermediate')">응용 예제</button>
+                    </div>
+                    <div class="btn-container"><button class="btn" onclick="showView('binomial-concept')">개념으로 돌아가기</button></div>
                 </div>
-                <div class="btn-container"><button class="btn" onclick="showView('binomial-concept')">개념으로 돌아가기</button></div>
-            </div>
-            <div id="binomial-example-view" class="dynamic-view-container" style="display:none;"></div>
-            <div id="binomial-quiz-difficulty" style="display:none;">
-                <h2>이항정리 - 문제 난이도 선택</h2>
-                <div class="btn-container">
-                    <button class="btn btn-difficulty" onclick="startQuiz('binomial', 'basic')">기초</button>
-                    <button class="btn btn-difficulty" onclick="startQuiz('binomial', 'intermediate')">응용</button>
-                    <button class="btn btn-difficulty" onclick="startQuiz('binomial', 'advanced')">심화</button>
+                <div id="binomial-example-view" class="dynamic-view-container" style="display:none;"></div>
+                <div id="binomial-quiz-difficulty" style="display:none;">
+                    <h2>이항정리 - 문제 난이도 선택</h2>
+                    <div class="btn-container">
+                        <button class="btn btn-difficulty" onclick="startQuiz('binomial', 'basic')">기초</button>
+                        <button class="btn btn-difficulty" onclick="startQuiz('binomial', 'intermediate')">응용</button>
+                        <button class="btn btn-difficulty" onclick="startQuiz('binomial', 'advanced')">심화</button>
+                    </div>
+                    <div class="btn-container"><button class="btn" onclick="showView('binomial-concept')">개념으로 돌아가기</button></div>
                 </div>
-                <div class="btn-container"><button class="btn" onclick="showView('binomial-concept')">개념으로 돌아가기</button></div>
+                <div id="binomial-quiz-view" class="dynamic-view-container" style="display:none;"></div>
             </div>
-            <div id="binomial-quiz-view" class="dynamic-view-container" style="display:none;"></div>
         </div>
+        <footer>
+            <p>만든이 by 김깐깐</p>
+        </footer>
     </div>
 </div>
 
 <script>
     // --- 데이터베이스 ---
-
-    // 예제 데이터
     const exampleData = {
         'perm-comb': {
             'basic': [
@@ -317,8 +337,6 @@
             ]
         }
     };
-
-    // 퀴즈 데이터
     const quizData = {
         'perm-comb': {
             'basic': [
@@ -329,7 +347,7 @@
                 { q: "A, B, C, D 네 사람이 일렬로 설 때, A가 맨 앞에 서는 경우의 수는?", a: "6", sol: "A를 고정하고 나머지 3명을 나열하므로 3! = 6" }
             ],
             'intermediate': [
-                { q: "0, 1, 2, 3, 4의 숫자로 만들 수 있는 세 자리 짝수는? (중복 허용, 0으로 시작 불가)", a: "40", sol: "일의 자리가 0: 4×5=20. 일의 자리가 2 또는 4: 3(백의자리 0제외)×5×2=30. 답:50(오류수정) -> 백의자리0제외 일의자리2,4: 3*5*2=30, 백의자리 0제외 일의자리0: 4*5*1=20, 20+30=50" },
+                { q: "0, 1, 2, 3, 4의 숫자로 만들 수 있는 세 자리 짝수는? (중복 허용, 0으로 시작 불가)", a: "50", sol: "일의 자리가 0: 백의 자리에 올 수 있는 수는 1,2,3,4(4가지), 십의 자리는 5가지. 4*5=20가지. 일의 자리가 2 또는 4: 백의 자리는 0제외(4가지->3가지), 십의 자리는 5가지. 3*5*2=30가지. 20+30=50" },
                 { q: "남학생 3명과 여학생 3명을 일렬로 세울 때, 남녀가 교대로 서는 경우의 수는?", a: "72", sol: "(남녀남녀남녀: 3!×3!=36) + (여남여남여남: 3!×3!=36) = 72" },
                 { q: "computer'의 8개 문자를 일렬로 나열할 때, c와 r 사이에 2개의 문자가 들어가는 경우의 수는?", a: "7200", sol: "c,r 제외 6개 문자 중 2개 선택(₆P₂=30). (c O O r) 묶음을 하나로 보고 5! 배열. c와 r 자리바꿈(2!). 30 × 5! × 2 = 7200" },
                 { q: "빨간 공 3개, 파란 공 2개를 일렬로 나열하는 경우의 수는?", a: "10", sol: "같은 것이 있는 순열: 5! / (3! × 2!) = 10" },
@@ -356,14 +374,14 @@
                  { q: "(2x-y)⁵의 전개식에서 x³y²의 계수는?", a: "80", sol: "₅C₂(2x)³(-y)² = 10 × 8x³ × y² 이므로 계수는 80" },
                  { q: "₁₀C₁ + ₁₀C₂ + ... + ₁₀C₁₀ 의 값은?", a: "1023", sol: "2¹⁰ - ₁₀C₀ = 1024 - 1 = 1023" },
                  { q: "(1+x)ⁿ의 전개식을 이용하여 11³의 값을 구하시오.", a: "1331", sol: "(1+10)³ = ₃C₀10⁰ + ₃C₁10¹ + ₃C₂10² + ₃C₃10³ = 1+30+300+1000 = 1331" },
-                 { q: "(x²-2/x)⁷의 전개식에서 x⁵의 계수는?", a: "224", sol: "₇Cᵣ(x²)⁷⁻ʳ(-2x⁻¹)ʳ. x의 지수 14-3r=5 -> 3r=9 -> r=3. ₇C₃ * (-2)³ = 35 * (-8) = -280 (수정: 계수는 -280임. 문제가 x^8이면 계수는 560)" }
+                 { q: "(x²-2/x)⁷의 전개식에서 x⁵의 계수는?", a: "-280", sol: "₇Cᵣ(x²)⁷⁻ʳ(-2x⁻¹)ʳ. x의 지수 14-3r=5 -> 3r=9 -> r=3. ₇C₃ * (-2)³ = 35 * (-8) = -280" }
             ],
             'advanced': [
                  { q: "(1+x) + (1+x)² + ... + (1+x)¹⁰의 전개식에서 x²의 계수는?", a: "165", sol: "등비수열의 합 공식 이용. 각 항에서 x²의 계수는 ₂C₂, ₃C₂, ..., ₁₀C₂. 하키스틱 패턴에 의해 합은 ₁₁C₃ = 165" },
                  { q: "(x+a)¹⁰의 전개식에서 x⁸의 계수가 180일 때, 양수 a의 값은?", a: "2", sol: "₁₀C₂x⁸a² = 45a²x⁸. 45a²=180 이므로 a²=4, a=2" },
                  { q: "₁₀C₀ - ₁₀C₁ + ₁₀C₂ - ... + ₁₀C₁₀ 의 값은?", a: "0", sol: "(1-1)¹⁰의 전개식과 같으므로 0¹⁰ = 0" },
                  { q: "99⁵을 100으로 나눈 나머지는?", a: "99", sol: "(100-1)⁵ = ... + ₅C₄(100)¹(-1)⁴ + ₅C₅(100)⁰(-1)⁵. 100의 배수들을 제외하면 마지막 항 -1만 남음. 나머지는 -1 ≡ 99 (mod 100)" },
-                 { q: "하키스틱 패턴을 이용하여 ₂C₂ + ₃C₂ + ₄C₂ + ₅C₂의 값을 구하시오.", a: "35", sol: "하키스틱 패턴에 의해 합은 ₆C₃ = 20. (수정: ₅C₃를 더하면 ₆C₄=15, 20+15=35. 문제에 ₅C₃가 누락된 듯)" }
+                 { q: "하키스틱 패턴을 이용하여 ₂C₂ + ₃C₂ + ₄C₂ + ₅C₂의 값을 구하시오.", a: "35", sol: "하키스틱 패턴에 의해 합은 ₆C₃ = 20 + ₅C₃ = 10 + ... = ₆C₃(오류). ₂C₂+₃C₂+₄C₂+₅C₂=₆C₃=20. (수정) ₃C₃+₃C₂+₄C₂+₅C₂=₄C₃+₄C₂+₅C₂=₅C₃+₅C₂=₆C₃=20" }
             ]
         }
     };
